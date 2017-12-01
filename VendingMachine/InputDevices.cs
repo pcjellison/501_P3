@@ -168,7 +168,6 @@ namespace VendingMachine
         {
             cn.Num++;
             cn.NumReturn++;
-
         }
     }
 

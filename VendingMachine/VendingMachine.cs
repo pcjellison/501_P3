@@ -122,7 +122,7 @@ namespace VendingMachine
             // constructors that take armuments to pass the first object that
             // the CoinInserted() will call
             //-----------DONE--------------
-            coinInserter10Yen = new CoinInserter();
+            coinInserter10Yen = new CoinInserter(yen10);
             coinInserter50Yen = new CoinInserter(yen50);
             coinInserter100Yen = new CoinInserter(yen100);
             coinInserter500Yen = new CoinInserter(yen500);
@@ -146,16 +146,9 @@ namespace VendingMachine
 
             controller = new Controller(coinInventory, drinkInventory);
 
-            //int total = 0;
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    total += coinInventory[i].Value;
-            //}
-            //amountDisplay.DisplayAmount(total);
-
             //// Display debug information
-            //displayCanPricesAndNames();
-            //updateDebugDisplays();
+            displayCanPricesAndNames();
+            updateDebugDisplays();
         }
 
  
@@ -241,6 +234,7 @@ namespace VendingMachine
         private void btnReset_Click(object sender, EventArgs e)
         {
             // Write the body to reset the field values of entity objects
+
         }
 
         private void displayCanPricesAndNames()
@@ -265,6 +259,10 @@ namespace VendingMachine
             displayNumCans1.Display(drink2.NumCans);
             displayNumCans2.Display(drink3.NumCans);
             displayNumCans3.Display(drink4.NumCans);
+
+            int total = ((yen10.NumReturn * yen10.Value) + (yen50.NumReturn * yen50.Value) + (yen100.NumReturn * yen100.Value) + (yen500.NumReturn * yen500.Value));
+            amountDisplay.DisplayAmount(total);
+
         }
     }
 }
