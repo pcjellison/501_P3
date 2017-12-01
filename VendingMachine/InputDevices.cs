@@ -13,63 +13,181 @@ namespace VendingMachine
     // For each class, you can (must) add fields and overriding constructors
     public class Controller
     {
+        public Controller()
+        {
 
+        }
+        //SubtractCoinAmount()
+        //NoCoinsRemail()
+        //UpdateDisplay()
+        //AttemptPurchase()
+        Drink [] drinkInventory = new Drink [4];
+        Coin[] coinInventory = new Coin[4];
     }
 
     public class Drink
     {
+        int _numCans;
+        int _price;
+        string _name;
+        Controller controller;
 
+        public Drink(int nC, int p, string n)
+        {
+            _numCans = nC;
+            _price = p;
+            _name = n;
+        }
+
+        public int NumCans
+        {
+            get
+            {
+                return _numCans;
+            }
+            set
+            {
+                _numCans = value;
+            }
+        }
+
+        public int Price
+        {
+            get
+            {
+                return _price;
+            }
+            set
+            {
+                _price = value;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
+        }
+
+        //Purchaseable();
+        //Purchasemade();
+        //SoldOut();
     }
 
     public class Coin
     {
+        int _num;
+        int _value;
+        int _numReturn;
+        Controller controller;
 
+        public Coin()
+        {
+
+        }
+        public Coin(int n, int v)
+        {
+            _num = n;
+            _value = v;
+        }
+
+        public int Num
+        {
+            get
+            {
+                return _num;
+            }
+            set
+            {
+                _num = value;
+            }
+        }
+
+        public int Value
+        {
+            get
+            {
+                return _value;
+            }
+        }
+
+        public int NumReturn
+        {
+            get
+            {
+                return _numReturn;
+            }
+            set
+            {
+                _numReturn = value;
+            }
+        }
+
+        //DispensCoins();
     }
 
 
 
     public class CoinInserter
     {
-        // add a field to specify an object that CoinInserted() will firstvisit - [Controller]
-        private Controller _controller;
+        // add a field to specify an object that CoinInserted() will firstvisit
+        Coin coin;
 
         // rewrite the following constructor with a constructor that takes an object
         // to be set to the above field
-        public CoinInserter(Controller c)
+        public CoinInserter(Coin cn)
         {
-            _controller = c;
+            coin = cn;
         }
         public void CoinInserted()
         {
             // You can add only one line here
+            UpdateCoinAmount(coin);
         }
 
+        void UpdateCoinAmount(Coin cn)
+        {
+            cn.Num++;
+        }
     }
 
     public class PurchaseButton
     {
         // add a field to specify an object that ButtonPressed() will first visit - [Controller]
-        Controller _controller;
+        Drink drink;
 
-        public PurchaseButton(Controller c)
+        public PurchaseButton(Drink dk)
         {
-            _controller = c;
+            drink = dk;
         }
         public void ButtonPressed()
         {
             // You can add only one line here
+            PurchaseMade(drink);
+        }
+
+        void PurchaseMade(Drink dk)
+        {
+            dk.NumCans--;
         }
     }
 
     public class CoinReturnButton
     {
         // add a field to specify an object that Button Pressed will visit - [Controller]
-        private Controller _controller;
+        Controller con;
+
         // replace the following default constructor with a constructor that takes
         // an object to be set to the above field
-        public CoinReturnButton(Controller c)
+        public CoinReturnButton(Controller control)
         {
-            _controller = c;
+            con = control;
         }
         public void ButtonPressed()
         {
