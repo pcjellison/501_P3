@@ -44,20 +44,20 @@ namespace VendingMachine
 
         // Declare fields for your entity and control objects
 
-        //Coin[] coinInventory = new Coin[4];
         Coin yen10 = new Coin(NUMCOINS[0], COINVALUES[0]);
         Coin yen50 = new Coin(NUMCOINS[1], COINVALUES[1]);
         Coin yen100 = new Coin(NUMCOINS[2], COINVALUES[2]);
         Coin yen500 = new Coin(NUMCOINS[3], COINVALUES[3]);
-
-        //Drink[] drinkInventory = new Drink[NUMCANTYPES];
+        
         Drink drink1 = new Drink(NUMCANS[0], CANPRICES[0], CANNAMES[0]);
         Drink drink2 = new Drink(NUMCANS[0], CANPRICES[0], CANNAMES[0]);
         Drink drink3 = new Drink(NUMCANS[0], CANPRICES[0], CANNAMES[0]);
         Drink drink4 = new Drink(NUMCANS[0], CANPRICES[0], CANNAMES[0]);
 
-        Controller controller = new Controller();
+        Coin[] coinInventory = new Coin[4];
+        Drink[] drinkInventory = new Drink[NUMCANTYPES];
 
+        Controller controller;
 
         public VendingMachine()
         {
@@ -112,9 +112,7 @@ namespace VendingMachine
             // constructors with arguments (non-default constructors)
             // to pass (set) the first object that ButtonPressed() will
             // visit
-
-
-
+            //------------DONE------------------
             purchaseButton0 = new PurchaseButton(drink1);
             purchaseButton1 = new PurchaseButton(drink2);
             purchaseButton2 = new PurchaseButton(drink3);
@@ -123,19 +121,41 @@ namespace VendingMachine
             // You must replace the following default constructors with
             // constructors that take armuments to pass the first object that
             // the CoinInserted() will call
-            coinInserter10Yen = new CoinInserter(yen10);
+            //-----------DONE--------------
+            coinInserter10Yen = new CoinInserter();
             coinInserter50Yen = new CoinInserter(yen50);
             coinInserter100Yen = new CoinInserter(yen100);
             coinInserter500Yen = new CoinInserter(yen500);
 
-            coinReturnButton = new CoinReturnButton(controller);
+                        
 
             // Instantiate your entity and control objects
             // Connect these objects
+            
+            coinInventory[0] = yen10;
+            coinInventory[1] = yen50;
+            coinInventory[2] = yen100;
+            coinInventory[3] = yen500;
 
-            // Display debug information
-            displayCanPricesAndNames();
-            updateDebugDisplays();
+            coinReturnButton = new CoinReturnButton(coinInventory);
+
+            drinkInventory[0] = drink1;
+            drinkInventory[1] = drink2;
+            drinkInventory[2] = drink3;
+            drinkInventory[3] = drink4;
+
+            controller = new Controller(coinInventory, drinkInventory);
+
+            //int total = 0;
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    total += coinInventory[i].Value;
+            //}
+            //amountDisplay.DisplayAmount(total);
+
+            //// Display debug information
+            //displayCanPricesAndNames();
+            //updateDebugDisplays();
         }
 
  

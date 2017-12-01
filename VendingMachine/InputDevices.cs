@@ -13,16 +13,31 @@ namespace VendingMachine
     // For each class, you can (must) add fields and overriding constructors
     public class Controller
     {
-        public Controller()
-        {
-
-        }
-        //SubtractCoinAmount()
-        //NoCoinsRemail()
-        //UpdateDisplay()
-        //AttemptPurchase()
-        Drink [] drinkInventory = new Drink [4];
+        Drink[] drinkInventory = new Drink[4];
         Coin[] coinInventory = new Coin[4];
+
+        public Controller(Coin[] coinInv, Drink[] drinkInv)
+        {
+            drinkInventory = drinkInv;
+            coinInventory = coinInv;
+        }
+
+        public Drink [] DInventory
+        {
+            get
+            {
+                return drinkInventory;
+            }
+        }
+
+        public Coin [] CInventory
+        {
+            get
+            {
+                return coinInventory;
+            }
+        }
+
     }
 
     public class Drink
@@ -74,10 +89,6 @@ namespace VendingMachine
                 _name = value;
             }
         }
-
-        //Purchaseable();
-        //Purchasemade();
-        //SoldOut();
     }
 
     public class Coin
@@ -128,8 +139,6 @@ namespace VendingMachine
                 _numReturn = value;
             }
         }
-
-        //DispensCoins();
     }
 
 
@@ -145,6 +154,10 @@ namespace VendingMachine
         {
             coin = cn;
         }
+        public CoinInserter()
+        {
+
+        }
         public void CoinInserted()
         {
             // You can add only one line here
@@ -154,6 +167,8 @@ namespace VendingMachine
         void UpdateCoinAmount(Coin cn)
         {
             cn.Num++;
+            cn.NumReturn++;
+
         }
     }
 
@@ -165,6 +180,10 @@ namespace VendingMachine
         public PurchaseButton(Drink dk)
         {
             drink = dk;
+        }
+        public PurchaseButton ()
+        {
+
         }
         public void ButtonPressed()
         {
@@ -181,17 +200,33 @@ namespace VendingMachine
     public class CoinReturnButton
     {
         // add a field to specify an object that Button Pressed will visit - [Controller]
-        Controller con;
+        Coin[] coinsI;
+        int i = 0;
 
         // replace the following default constructor with a constructor that takes
         // an object to be set to the above field
-        public CoinReturnButton(Controller control)
+        public CoinReturnButton(Coin [] cI)
         {
-            con = control;
+            coinsI = cI;
+        }
+        public CoinReturnButton()
+        {
+
         }
         public void ButtonPressed()
         {
             // You can add only one lines here
+            DispenseCoins(coinsI);
+        }
+
+        void DispenseCoins(Coin [] cI)
+        {
+            for(int i = 0; i<cI.Length; i++)
+            {
+                cI[i].Num -= cI[i].NumReturn;
+                cI[i].NumReturn = 0;
+            }
+
         }
     }
 }
