@@ -11,15 +11,33 @@ using System.Text;
 namespace VendingMachine
 {
     // For each class, you can (must) add fields and overriding constructors
+    public class Controller
+    {
+
+    }
+
+    public class Drink
+    {
+
+    }
+
+    public class Coin
+    {
+
+    }
+
+
 
     public class CoinInserter
     {
         // add a field to specify an object that CoinInserted() will firstvisit - [Controller]
-           
+        private Controller _controller;
+
         // rewrite the following constructor with a constructor that takes an object
         // to be set to the above field
-        public CoinInserter()
+        public CoinInserter(Controller c)
         {
+            _controller = c;
         }
         public void CoinInserted()
         {
@@ -31,9 +49,11 @@ namespace VendingMachine
     public class PurchaseButton
     {
         // add a field to specify an object that ButtonPressed() will first visit - [Controller]
+        Controller _controller;
 
-        public PurchaseButton()
-        { 
+        public PurchaseButton(Controller c)
+        {
+            _controller = c;
         }
         public void ButtonPressed()
         {
@@ -44,11 +64,12 @@ namespace VendingMachine
     public class CoinReturnButton
     {
         // add a field to specify an object that Button Pressed will visit - [Controller]
-
+        private Controller _controller;
         // replace the following default constructor with a constructor that takes
         // an object to be set to the above field
-        public CoinReturnButton()
+        public CoinReturnButton(Controller c)
         {
+            _controller = c;
         }
         public void ButtonPressed()
         {

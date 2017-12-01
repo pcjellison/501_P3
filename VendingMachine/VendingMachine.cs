@@ -43,7 +43,9 @@ namespace VendingMachine
         private CoinReturnButton coinReturnButton;
 
         // Declare fields for your entity and control objects
-
+        private Controller controller;
+        private Drink drink;
+        private Coin coin;
 
 
         public VendingMachine()
@@ -102,23 +104,26 @@ namespace VendingMachine
 
 
 
-            purchaseButton0 = new PurchaseButton();
-            purchaseButton1 = new PurchaseButton();
-            purchaseButton2 = new PurchaseButton();
-            purchaseButton3 = new PurchaseButton();
+            purchaseButton0 = new PurchaseButton(controller);
+            purchaseButton1 = new PurchaseButton(controller);
+            purchaseButton2 = new PurchaseButton(controller);
+            purchaseButton3 = new PurchaseButton(controller);
 
             // You must replace the following default constructors with
             // constructors that take armuments to pass the first object that
             // the CoinInserted() will call
-            coinInserter10Yen = new CoinInserter();
-            coinInserter50Yen = new CoinInserter();
-            coinInserter100Yen = new CoinInserter();
-            coinInserter500Yen = new CoinInserter();
+            coinInserter10Yen = new CoinInserter(controller);
+            coinInserter50Yen = new CoinInserter(controller);
+            coinInserter100Yen = new CoinInserter(controller);
+            coinInserter500Yen = new CoinInserter(controller);
 
-            coinReturnButton = new CoinReturnButton();
+            coinReturnButton = new CoinReturnButton(controller);
 
             // Instantiate your entity and control objects
             // Connect these objects
+            controller = new Controller();
+            drink = new Drink();
+            coin = new Coin();
 
             // Display debug information
             displayCanPricesAndNames();
@@ -208,6 +213,9 @@ namespace VendingMachine
         private void btnReset_Click(object sender, EventArgs e)
         {
             // Write the body to reset the field values of entity objects
+            controller = new Controller();
+            drink = new Drink();
+            coin = new Coin(); 
         }
 
         private void displayCanPricesAndNames()
@@ -225,8 +233,8 @@ namespace VendingMachine
         private void updateDebugDisplays()
         {
             // You need to change XXX to appropriate "object.property"
-            /* 
-            displayNum10Yen.Display(XXX);
+            /*
+            displayNum10Yen.Display();
             displayNum50Yen.Display(XXX);
             displayNum100Yen.Display(XXX);
             displayNum500Yen.Display(XXX);
@@ -236,9 +244,5 @@ namespace VendingMachine
             displayNumCans3.Display(XXX);
              * */
         }
-
-    
-
-        
     }
 }
